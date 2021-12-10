@@ -4,6 +4,8 @@ ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1
 
+RUN echo "Test repo"
+
 RUN pip install "poetry==1.1.11"
 
 COPY poetry.lock pyproject.toml ./

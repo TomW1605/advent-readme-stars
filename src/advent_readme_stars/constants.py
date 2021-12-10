@@ -31,3 +31,9 @@ ADVENT_URL = os.environ.get("ADVENT_URL", "https://adventofcode.com")
 
 #: Stars info endpoint
 STARS_ENDPOINT = f"{ADVENT_URL}/{YEAR}/leaderboard/private/view/{LEADERBOARD_ID}.json"
+
+#: Show time switch
+SHOW_TIME = bool(os.environ.get("SHOW_TIME", False))
+
+#: Local Timezone
+LOCAL_TIMEZONE = os.environ.get("LOCAL_TIMEZONE", "")

@@ -1,17 +1,29 @@
+import datetime
 from dataclasses import dataclass
 from typing import Generator
 
+import pytz as pytz
 import requests
 
-from advent_readme_stars.constants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID
-
+from advent_readme_stars.constants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID, YEAR, LOCAL_TIMEZONE
 
 @dataclass(frozen=True, eq=True)
 class DayProgress:
     day: int
     part_1: bool
+    part_1_time: str
     part_2: bool
+    part_2_time: str
 
+def calculate_solve_time(day: int, timestamp: int) -> str:
+    release_timezone = pytz.timezone("EST")
+    release_time = release_timezone.localize(datetime.datetime(YEAR, 12, day, 0, 0, 0))
+
+    submit_timezone = pytz.timezone(LOCAL_TIMEZONE)
+    submit_time = submit_timezone.localize(datetime.datetime.fromtimestamp(timestamp))
+
+    solve_time = submit_time - release_time
+    return f"{solve_time}"
 
 def get_progress() -> Generator[DayProgress, None, None]:
     res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
@@ -26,5 +38,7 @@ def get_progress() -> Generator[DayProgress, None, None]:
         yield DayProgress(
             day=int(day),
             part_1="1" in completed,
+            part_1_time="" if "1" not in completed else calculate_solve_time(int(day), int(parts["1"]["get_star_ts"])),
             part_2="2" in completed,
+            part_2_time="" if "2" not in completed else calculate_solve_time(int(day), int(parts["2"]["get_star_ts"])),
         )

@@ -5,10 +5,9 @@ from advent_readme_stars.constants import (
     HEADER_PREFIX,
     STAR_SYMBOL,
     TABLE_MARKER,
-    YEAR,
+    YEAR, SHOW_TIME,
 )
 from advent_readme_stars.progress import get_progress
-
 
 def remove_existing_table(lines: List[str]) -> List[str]:
     """
@@ -57,6 +56,11 @@ def insert_table(lines: List[str]) -> List[str]:
         day_text = f"[Day {star_info.day}]({day_url})"
         part_1_text = STAR_SYMBOL if star_info.part_1 else " "
         part_2_text = STAR_SYMBOL if star_info.part_2 else " "
+
+        if SHOW_TIME:
+            part_1_text += "<br>"+star_info.part_1_time if star_info.part_1 else ""
+            part_2_text += "<br>"+star_info.part_2_time if star_info.part_2 else ""
+
         to_insert.append(f"| {day_text} | {part_1_text} | {part_2_text} |")
 
     return lines[:table_location] + to_insert + lines[table_location:]

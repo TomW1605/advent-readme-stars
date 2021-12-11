@@ -48,6 +48,14 @@ inputs:
     description: Location of the README file
     required: false
     default: "README.md"
+  showTime:
+    description: Should the compleation time be shown
+    required: false
+    default: "False"
+  localTimezone:
+    description: Timezone the tasks were compleated in
+    required: false
+    default: "GMT"
 branding:
   icon: "star"
   color: "purple"

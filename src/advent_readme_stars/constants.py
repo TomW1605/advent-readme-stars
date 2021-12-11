@@ -1,6 +1,6 @@
 import os
 
-from advent_readme_stars.advent import most_recent_advent_year
+from advent import most_recent_advent_year
 
 #: Advent of Code user ID
 USER_ID = os.environ.get("INPUT_USERID", "")
@@ -30,10 +30,13 @@ README_LOCATION = os.environ.get("INPUT_READMELOCATION", "")
 ADVENT_URL = os.environ.get("ADVENT_URL", "https://adventofcode.com")
 
 #: Stars info endpoint
-STARS_ENDPOINT = f"{ADVENT_URL}/{YEAR}/leaderboard/private/view/{LEADERBOARD_ID}.json"
+STARS_ENDPOINT = f"leaderboard/private/view/{LEADERBOARD_ID}.json"
 
 #: Show time switch
 SHOW_TIME = bool(os.environ.get("INPUT_SHOWTIME", False))
 
 #: Reverse days switch
 REVERSE_DAYS = bool(os.environ.get("INPUT_REVERSEDAYS", False))
+
+#: Show past years switch
+SHOW_PAST_YEARS = bool(os.environ.get("INPUT_SHOWPASTYEARS", False))

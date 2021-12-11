@@ -1,12 +1,11 @@
 import datetime
-import time
 from dataclasses import dataclass
 from typing import Generator
 
 import pytz as pytz
 import requests
 
-from advent_readme_stars.constants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID, YEAR
+from testConstants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID, ADVENT_URL
 
 @dataclass(frozen=True, eq=True)
 class DayProgress:
@@ -16,8 +15,8 @@ class DayProgress:
     part_2: bool
     part_2_time: str
 
-def calculate_solve_time(day: int, timestamp: int) -> str:
-    release_time = pytz.timezone("EST").localize(datetime.datetime(YEAR, 12, day, 0, 0, 0))
+def calculate_solve_time(year: int, day: int, timestamp: int) -> str:
+    release_time = pytz.timezone("EST").localize(datetime.datetime(year, 12, day, 0, 0, 0))
 
     submit_time = pytz.timezone("UTC").localize(datetime.datetime.utcfromtimestamp(timestamp))
 
@@ -25,8 +24,8 @@ def calculate_solve_time(day: int, timestamp: int) -> str:
     #print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time, "\trelease_time:", release_time, "\tsolve_time:", solve_time, "\tLOCAL_TIMEZONE:", LOCAL_TIMEZONE)
     return f"{solve_time}"
 
-def get_progress() -> Generator[DayProgress, None, None]:
-    res = requests.get(STARS_ENDPOINT, cookies={"session": SESSION_COOKIE})
+def get_progress(year: int) -> Generator[DayProgress, None, None]:
+    res = requests.get(f"{ADVENT_URL}/{year}/{STARS_ENDPOINT}", cookies={"session": SESSION_COOKIE})
     res.raise_for_status()
 
     leaderboard_info = res.json()
@@ -40,7 +39,7 @@ def get_progress() -> Generator[DayProgress, None, None]:
         yield DayProgress(
             day=int(day),
             part_1="1" in completed,
-            part_1_time="" if "1" not in completed else calculate_solve_time(int(day), int(parts["1"]["get_star_ts"])),
+            part_1_time="" if "1" not in completed else calculate_solve_time(year, int(day), int(parts["1"]["get_star_ts"])),
             part_2="2" in completed,
-            part_2_time="" if "2" not in completed else calculate_solve_time(int(day), int(parts["2"]["get_star_ts"])),
+            part_2_time="" if "2" not in completed else calculate_solve_time(year, int(day), int(parts["2"]["get_star_ts"])),
         )

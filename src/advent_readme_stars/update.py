@@ -1,6 +1,6 @@
 from typing import List
 
-from advent_readme_stars.constants import (
+from testConstants import (
     ADVENT_URL,
     HEADER_PREFIX,
     STAR_SYMBOL,
@@ -8,8 +8,9 @@ from advent_readme_stars.constants import (
     YEAR,
     SHOW_TIME,
     REVERSE_DAYS,
+    SHOW_PAST_YEARS,
 )
-from advent_readme_stars.progress import get_progress
+from progress import get_progress
 
 def remove_existing_table(lines: List[str]) -> List[str]:
     """
@@ -32,7 +33,7 @@ def remove_existing_table(lines: List[str]) -> List[str]:
     return lines
 
 
-def insert_table(lines: List[str]) -> List[str]:
+def insert_table(lines: List[str], year: int, first: bool) -> (List[str], bool):
     """
     Search the lines for a table marker, and insert a table there.
     """
@@ -42,20 +43,24 @@ def insert_table(lines: List[str]) -> List[str]:
             table_location = i
             break
     else:
-        return lines
+        return lines, True
+
+    stars_info = sorted(list(get_progress(year)), key=lambda p: p.day)
+    stars_info = list(reversed(stars_info)) if REVERSE_DAYS else stars_info
+
+    if len(stars_info) == 0:
+        return lines, True
 
     to_insert = [
         TABLE_MARKER,
-        f"{HEADER_PREFIX} {YEAR} Results",
+        f"{HEADER_PREFIX} {year} Results",
         "",
         "| Day | Part 1 | Part 2 |",
         "| :---: | :---: | :---: |",
     ]
-    stars_info = sorted(list(get_progress()), key=lambda p: p.day)
-    stars_info = reversed(stars_info) if REVERSE_DAYS else stars_info
 
     for star_info in stars_info:
-        day_url = f"{ADVENT_URL}/{YEAR}/day/{star_info.day}"
+        day_url = f"{ADVENT_URL}/{year}/day/{star_info.day}"
         day_text = f"[Day {star_info.day}]({day_url})"
         part_1_text = STAR_SYMBOL if star_info.part_1 else " "
         part_2_text = STAR_SYMBOL if star_info.part_2 else " "
@@ -66,14 +71,21 @@ def insert_table(lines: List[str]) -> List[str]:
 
         to_insert.append(f"| {day_text} | {part_1_text} | {part_2_text} |")
 
-    return lines[:table_location] + to_insert + lines[table_location:]
+    to_insert.append(TABLE_MARKER if first else "")
+
+    return lines[:table_location] + to_insert + lines[table_location+1:], False
 
 
 def update_readme(readme: List[str]) -> List[str]:
     """
     Take the contents of a readme file and update them
     """
-    reduced = remove_existing_table(readme)
-    new_readme = insert_table(reduced)
+    new_readme = remove_existing_table(readme)
+    first = True
+    if SHOW_PAST_YEARS:
+        for year in range(2015, YEAR+1):
+            new_readme, first = insert_table(new_readme, year, first)
+    else:
+        new_readme = insert_table(new_readme, YEAR, first)[0]
 
     return new_readme

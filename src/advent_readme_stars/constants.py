@@ -34,6 +34,3 @@ STARS_ENDPOINT = f"{ADVENT_URL}/{YEAR}/leaderboard/private/view/{LEADERBOARD_ID}
 
 #: Show time switch
 SHOW_TIME = bool(os.environ.get("INPUT_SHOWTIME", False))
-
-#: Local Timezone
-LOCAL_TIMEZONE = os.environ.get("INPUT_LOCALTIMEZONE", "")

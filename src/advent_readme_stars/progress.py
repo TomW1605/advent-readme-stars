@@ -17,14 +17,9 @@ class DayProgress:
     part_2_time: str
 
 def calculate_solve_time(day: int, timestamp: int) -> str:
-    release_time = datetime.datetime(YEAR, 12, day, 0, 0, 0)
-    release_timezone = pytz.timezone("EST")
-    release_time = release_timezone.localize(release_time)
+    release_time = pytz.timezone("EST").localize(datetime.datetime(YEAR, 12, day, 0, 0, 0))
 
-    submit_time = datetime.datetime.utcfromtimestamp(timestamp)
-    submit_timezone = pytz.timezone("UTC")
-    submit_time = submit_timezone.localize(submit_time)
-    print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time.timestamp(), "\tLOCAL_TIMEZONE:", submit_timezone)
+    submit_time = pytz.timezone("UTC").localize(datetime.datetime.utcfromtimestamp(timestamp))
 
     solve_time = submit_time - release_time
     #print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time.timestamp(), "\trelease_time:", release_time, "\tsolve_time:", solve_time, "\tLOCAL_TIMEZONE:", LOCAL_TIMEZONE)

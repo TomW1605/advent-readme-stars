@@ -16,11 +16,13 @@ class DayProgress:
     part_2_time: str
 
 def calculate_solve_time(day: int, timestamp: int) -> str:
+    release_time = datetime.datetime(YEAR, 12, day, 0, 0, 0)
     release_timezone = pytz.timezone("EST")
-    release_time = release_timezone.localize(datetime.datetime(YEAR, 12, day, 0, 0, 0))
+    release_time = release_timezone.localize(release_time)
 
+    submit_time = datetime.datetime.fromtimestamp(timestamp)
     submit_timezone = pytz.timezone(LOCAL_TIMEZONE)
-    submit_time = submit_timezone.localize(datetime.datetime.fromtimestamp(timestamp))
+    submit_time = submit_timezone.localize(submit_time)
 
     solve_time = submit_time - release_time
     return f"{solve_time}"
@@ -30,6 +32,8 @@ def get_progress() -> Generator[DayProgress, None, None]:
     res.raise_for_status()
 
     leaderboard_info = res.json()
+
+    print(leaderboard_info)
 
     stars = leaderboard_info["members"][USER_ID]["completion_day_level"]
 

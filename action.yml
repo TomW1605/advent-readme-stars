@@ -52,6 +52,10 @@ inputs:
     description: Should the compleation time be shown
     required: false
     default: "False"
+  reverseDays:
+    description: Show latest day first
+    required: false
+    default: "True"
 branding:
   icon: "star"
   color: "purple"

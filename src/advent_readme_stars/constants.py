@@ -34,3 +34,6 @@ STARS_ENDPOINT = f"{ADVENT_URL}/{YEAR}/leaderboard/private/view/{LEADERBOARD_ID}
 
 #: Show time switch
 SHOW_TIME = bool(os.environ.get("INPUT_SHOWTIME", False))
+
+#: Reverse days switch
+REVERSE_DAYS = bool(os.environ.get("INPUT_REVERSEDAYS", False))

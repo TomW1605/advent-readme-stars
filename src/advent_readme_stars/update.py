@@ -7,6 +7,7 @@ from advent_readme_stars.constants import (
     TABLE_MARKER,
     YEAR,
     SHOW_TIME,
+    REVERSE_DAYS,
 )
 from advent_readme_stars.progress import get_progress
 
@@ -51,6 +52,7 @@ def insert_table(lines: List[str]) -> List[str]:
         "| :---: | :---: | :---: |",
     ]
     stars_info = sorted(list(get_progress()), key=lambda p: p.day)
+    stars_info = reversed(stars_info) if REVERSE_DAYS else stars_info
 
     for star_info in stars_info:
         day_url = f"{ADVENT_URL}/{YEAR}/day/{star_info.day}"

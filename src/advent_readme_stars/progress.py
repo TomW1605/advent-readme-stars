@@ -23,7 +23,7 @@ def calculate_solve_time(day: int, timestamp: int) -> str:
     submit_time = datetime.datetime.fromtimestamp(timestamp)
     submit_timezone = pytz.timezone(LOCAL_TIMEZONE)
     submit_time = submit_timezone.localize(submit_time)
-    print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time.timestamp())
+    print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time.timestamp(), "\tLOCAL_TIMEZONE:", submit_timezone)
 
     solve_time = submit_time - release_time
     #print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time.timestamp(), "\trelease_time:", release_time, "\tsolve_time:", solve_time, "\tLOCAL_TIMEZONE:", LOCAL_TIMEZONE)

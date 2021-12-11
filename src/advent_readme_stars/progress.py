@@ -6,7 +6,7 @@ from typing import Generator
 import pytz as pytz
 import requests
 
-from advent_readme_stars.constants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID, YEAR, LOCAL_TIMEZONE
+from advent_readme_stars.constants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID, YEAR
 
 @dataclass(frozen=True, eq=True)
 class DayProgress:
@@ -22,7 +22,7 @@ def calculate_solve_time(day: int, timestamp: int) -> str:
     submit_time = pytz.timezone("UTC").localize(datetime.datetime.utcfromtimestamp(timestamp))
 
     solve_time = submit_time - release_time
-    #print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time.timestamp(), "\trelease_time:", release_time, "\tsolve_time:", solve_time, "\tLOCAL_TIMEZONE:", LOCAL_TIMEZONE)
+    #print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time, "\trelease_time:", release_time, "\tsolve_time:", solve_time, "\tLOCAL_TIMEZONE:", LOCAL_TIMEZONE)
     return f"{solve_time}"
 
 def get_progress() -> Generator[DayProgress, None, None]:

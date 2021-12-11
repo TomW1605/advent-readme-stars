@@ -5,7 +5,8 @@ from advent_readme_stars.constants import (
     HEADER_PREFIX,
     STAR_SYMBOL,
     TABLE_MARKER,
-    YEAR, SHOW_TIME,
+    YEAR,
+    SHOW_TIME,
 )
 from advent_readme_stars.progress import get_progress
 

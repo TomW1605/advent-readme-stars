@@ -1,6 +1,6 @@
 if __name__ == "__main__":
-    from constants import README_LOCATION
-    from update import update_readme
+    from advent_readme_stars.constants import README_LOCATION
+    from advent_readme_stars.update import update_readme
 
     with open(README_LOCATION, "r", encoding="UTF-8") as f:
         lines = f.read().splitlines()

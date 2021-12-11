@@ -5,7 +5,7 @@ from typing import Generator
 import pytz as pytz
 import requests
 
-from constants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID, ADVENT_URL
+from advent_readme_stars.constants import SESSION_COOKIE, STARS_ENDPOINT, USER_ID, ADVENT_URL
 
 @dataclass(frozen=True, eq=True)
 class DayProgress:

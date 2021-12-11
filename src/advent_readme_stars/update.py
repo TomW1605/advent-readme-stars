@@ -1,6 +1,6 @@
 from typing import List
 
-from constants import (
+from advent_readme_stars.constants import (
     ADVENT_URL,
     HEADER_PREFIX,
     STAR_SYMBOL,
@@ -10,7 +10,7 @@ from constants import (
     REVERSE_DAYS,
     SHOW_PAST_YEARS,
 )
-from progress import get_progress
+from advent_readme_stars.progress import get_progress
 
 def remove_existing_table(lines: List[str]) -> List[str]:
     """

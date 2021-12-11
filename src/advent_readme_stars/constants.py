@@ -1,6 +1,6 @@
 import os
 
-from advent import most_recent_advent_year
+from advent_readme_stars.advent import most_recent_advent_year
 
 #: Advent of Code user ID
 USER_ID = os.environ.get("INPUT_USERID", "")

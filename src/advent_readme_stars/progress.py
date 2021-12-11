@@ -31,7 +31,7 @@ def get_progress() -> Generator[DayProgress, None, None]:
 
     leaderboard_info = res.json()
 
-    print(leaderboard_info)
+    #print(leaderboard_info)
 
     stars = leaderboard_info["members"][USER_ID]["completion_day_level"]
 

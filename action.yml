@@ -55,7 +55,7 @@ inputs:
   reverseDays:
     description: Show latest day first
     required: false
-    default: "True"
+    default: "False"
 branding:
   icon: "star"
   color: "purple"

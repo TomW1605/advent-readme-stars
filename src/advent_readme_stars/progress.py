@@ -1,4 +1,5 @@
 import datetime
+import time
 from dataclasses import dataclass
 from typing import Generator
 
@@ -20,8 +21,8 @@ def calculate_solve_time(day: int, timestamp: int) -> str:
     release_timezone = pytz.timezone("EST")
     release_time = release_timezone.localize(release_time)
 
-    submit_time = datetime.datetime.fromtimestamp(timestamp)
-    submit_timezone = pytz.timezone(LOCAL_TIMEZONE)
+    submit_time = datetime.datetime.utcfromtimestamp(timestamp)
+    submit_timezone = pytz.timezone("UTC")
     submit_time = submit_timezone.localize(submit_time)
     print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time.timestamp(), "\tLOCAL_TIMEZONE:", submit_timezone)
 

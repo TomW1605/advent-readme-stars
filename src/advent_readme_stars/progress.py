@@ -25,7 +25,7 @@ def calculate_solve_time(day: int, timestamp: int) -> str:
     submit_time = submit_timezone.localize(submit_time)
 
     solve_time = submit_time - release_time
-    print(day, submit_time, release_time, solve_time)
+    print("day:", day, "\ttimestamp:", timestamp, "\tsubmit_time:", submit_time, "\trelease_time:", release_time, "\tsolve_time:", solve_time, "\tLOCAL_TIMEZONE:", LOCAL_TIMEZONE)
     return f"{solve_time}"
 
 def get_progress() -> Generator[DayProgress, None, None]:

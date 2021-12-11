@@ -1,6 +1,6 @@
 from typing import List
 
-from testConstants import (
+from constants import (
     ADVENT_URL,
     HEADER_PREFIX,
     STAR_SYMBOL,
